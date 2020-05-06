@@ -1,0 +1,4 @@
+cd "C:\Users\daniel.santhiago\OneDrive - Interpublic\Documents\Daniel\Nestle\machines_crawler_flask"
+git init
+
+git remote add origin https://github.com/daniel-santhiago-08/machine_crawler_flask

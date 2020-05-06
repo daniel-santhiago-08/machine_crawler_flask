@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Histórico{% endblock %}
+
+{% block content %}
+
+{% include 'components/notification.html' %}
+
+<form method="POST">
+
+    <div class="input-group mt-3 mb-3" id="filters"></div>
+
+    <div class="table-responsive">
+    <table class="table table-shopping">
+        <thead id="table-header-ajax" class="thead"></thead>
+        <tbody id="table_body_ajax"></tbody>
+    </table>
+    </div>
+    {% include 'components/pagination.html' %}
+
+
+</form>
+
+{% endblock %}
+
+{% block script %}
+
+<script> var url = '/machines_crawler/evolution-post' </script>
+
+{% endblock %}

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+<!--    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">-->
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+
+    <!-- Material Dashboard CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/material-dashboard.css')}}">
+
+    {{ bootstrap.load_css() }}
+
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css'>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script id="dataslayerLaunchMonitors">
+console.log('** dataslayer: injecting Launch monitors **');
+window._satellite = window._satellite || {};
+window._satellite._monitors = window._satellite._monitors || [];
+window._satellite._monitors.push({
+  ruleTriggered: function(e) {
+    window.parent.postMessage(
+      {
+        type: 'dataslayer_launchruletriggered',
+        url: window == window.parent ? window.location.href : 'iframe',
+        data: JSON.parse(JSON.stringify(e.rule)),
+      },
+      '*'
+    );
+  },
+  ruleCompleted: function(e) {
+    // console.log('** dataslayer: Launch rule completed **', e.rule);
+    var rule = JSON.parse(JSON.stringify(e.rule));
+    var sendRule = function() {
+        if (window.dataslayer) {
+            window.parent.postMessage(
+                {
+                    type: 'dataslayer_launchrulecompleted',
+                    url: window == window.parent ? window.location.href : 'iframe',
+                    data: rule,
+                },
+                '*'
+            );
+            // console.log('** dataslayer: posted rule '+rule+'**');
+        } else {
+            if (document.readyState === 'complete') {
+                // console.log('** dataslayer: giving up on launch **');
+                window._dataslayerQueue = window._dataslayerQueue || [];
+                window._dataslayerQueue.push({
+                  type: 'dataslayer_launchrulecompleted',
+                  url: window == window.parent ? window.location.href : 'iframe',
+                  data: rule,
+                });
+                return;
+            } else {
+                // console.log('** dataslayer: waiting 250ms to repost rule **');
+                window.setTimeout(sendRule, 250);
+            }
+        }
+    }
+    sendRule();
+    if (
+      window._satellite &&
+      window._satellite._container &&
+      window._satellite._container.dataElements
+    ) {
+      var elementNames = Object.keys(
+        window._satellite._container.dataElements
+      ).sort(function(a, b) {
+        var nameA = a.toUpperCase();
+        var nameB = b.toUpperCase();
+
+        if (nameA < nameB) {
+          return -1;
+        } else if (nameA > nameB) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+
+      let launchElements = {};
+
+      for (var i = 0; i < elementNames.length; i++) {
+        var newElement = JSON.parse(
+          JSON.stringify(
+            window._satellite._container.dataElements[elementNames[i]]
+          )
+        );
+
+        let cleanValue = window._satellite.getVar(elementNames[i]);
+        if (typeof cleanValue === 'function') {
+          cleanValue = '(function)';
+        } else if (
+          typeof cleanValue === 'object' &&
+          typeof cleanValue.then === 'function'
+        ) {
+          cleanValue = '(Promise)';
+        }
+        launchElements[elementNames[i]] = cleanValue;
+        // launchElements.push({
+        //   key: elementNames[i],
+        //   value: cleanValue,
+        //   element: newElement,
+        // });
+      }
+      try {
+        window.parent.postMessage(
+          {
+            type: 'dataslayer_launchdataelements',
+            data: 'found',
+            url: window == window.parent ? window.location.href : 'iframe',
+            elements: launchElements
+          },
+          '*'
+        );
+      } catch (e) {
+        console.warn(e);
+      }
+
+    }
+  },
+  ruleConditionFailed: function(e) {
+    window.parent.postMessage(
+      {
+        type: 'dataslayer_launchrulefailed',
+        url: window == window.parent ? window.location.href : 'iframe',
+        data: JSON.parse(JSON.stringify(e.rule)),
+      },
+      '*'
+    );
+  },
+});
+</script>
+    <script style="display: none;">var tvt = tvt || {}; tvt.captureVariables = function(a){for(var b=
+new Date,c={},d=Object.keys(a||{}),e=0,f;f=d[e];e++)if(a.hasOwnProperty(f)&&"undefined"!=typeof a[f])try{var g=[];c[f]=JSON.stringify(a[f],function(l,t){try{if("function"!==typeof t){if("object"===typeof t&&null!==t){if(t instanceof HTMLElement||t instanceof Node||-1!=g.indexOf(t))return;g.push(t)}return t}}catch(A){}})}catch(l){}a=document.createEvent("CustomEvent");a.initCustomEvent("TvtRetrievedVariablesEvent",!0,!0,{variables:c,date:b});window.dispatchEvent(a)};window.setTimeout(function() {tvt.captureVariables({'dataLayer.hide': (function(a){a=a.split(".");for(var b=window,c=0;c<a.length&&(b=b[a[c]],b);c++);return b})('dataLayer.hide'),'gaData': window['gaData'],'dataLayer': window['dataLayer']})}, 2000);</script>
+    <style type="text/css">
+@font-face {
+  font-weight: 400;
+  font-style:  normal;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-weight: 400;
+  font-style:  italic;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-Italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-weight: 500;
+  font-style:  normal;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-weight: 500;
+  font-style:  italic;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-MediumItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-weight: 700;
+  font-style:  normal;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-weight: 700;
+  font-style:  italic;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-BoldItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-weight: 900;
+  font-style:  normal;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-Black.woff2') format('woff2');
+}
+@font-face {
+  font-weight: 900;
+  font-style:  italic;
+  font-family: 'Inter-Loom';
+
+  src: url('https://cdn.loom.com/assets/fonts/inter/Inter-UI-BlackItalic.woff2') format('woff2');
+}</style>
+
+
+    <script src="{{url_for('static', filename='js/Chart.min.js')}}"></script>
+    <title>{% block title %}{% endblock %}</title>
+
+
+</head>
+<body>
+
+<div class="wrapper d-flex align-items-stretch">
+
+    {% include 'components/sidebar.html' %}
+
+
+    <div id="content" class="">
+    {% include 'components/nav.html' %}
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    </div>
+
+</div>
+
+
+<!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>-->
+{{bootstrap.load_js()}}
+
+
+{% block script %}
+{% endblock %}
+
+<script src="{{url_for('static', filename='js/main.js')}}" type="text/javascript"></script>
+<script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+<!--<script src="{{url_for('static', filename='js/test-ajax.js')}}"></script>-->
+<script src="{{url_for('static', filename='js/ajax-form.js')}}"></script>
+
+
+<!--   Core JS Files   -->
+<!--  <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>-->
+<!--  <script src="assets/js/core/popper.min.js" type="text/javascript"></script>-->
+<!--  <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>-->
+
+
+
+
+
+
+
+
+
+</body>
+</html>

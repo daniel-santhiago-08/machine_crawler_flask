@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Gráfico Evolução{% endblock %}
+
+{% block content %}
+
+{% include 'components/notification.html' %}
+
+<!-- bar chart canvas element -->
+<!--<canvas id="productsChart" width="600" height="400"></canvas>-->
+<canvas id="productsChart" width="100%"></canvas>
+<p id="caption">The chart is displaying a simple line chart.</p>
+
+{% endblock %}
+
+{% block script %}
+
+<script>  var url = '/machines_crawler/simple_chart'  </script>
+<script>  var context = JSON.parse('{{ context | tojson | safe}}') </script>
+<script src="{{url_for('static', filename='js/line-chart-test-2.js')}}"></script>
+
+
+{% endblock %}

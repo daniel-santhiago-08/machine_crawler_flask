@@ -1,0 +1,19 @@
+sqlacodegen --outfile c:/temp/models.py postgresql://daniel_santhiago:DWhouse130_@dolce-gusto-medium.czm3momztmix.sa-east-1.rds.amazonaws.com:5432/dolce_gusto
+
+
+# DB: machines_crawler
+sqlacodegen --outfile c:/temp/models.py postgresql://daniel_santhiago:DWhouse130_@dolce-gusto-medium.czm3momztmix.sa-east-1.rds.amazonaws.com:5432/machines_crawler
+
+sqlacodegen --outfile c:/temp/models_mssql.py mssql+pyodbc://SPLADB30/DB_NLAB?driver=SQL+Server?trusted_connection=yes
+
+
+
+SET SERVER=motty.db.elephantsql.com
+SET DATABASE=vdqwlrpc
+SET PORT=5432
+SET USERNAME=vdqwlrpc
+SET PASS=Pz3hNp6zHyu6L8bHrGbT9yqpzGh-TKK1
+SET CONN=%USERNAME%:%PASS%@%SERVER%:%PORT%/%DATABASE%
+
+sqlacodegen postgresql://%CONN% > app/models_postgresql.py
+
