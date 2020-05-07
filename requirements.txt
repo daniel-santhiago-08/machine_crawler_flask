@@ -37,9 +37,7 @@ psycopg2-binary==2.8.5
 py==1.8.1
 pyodbc==4.0.30
 pyparsing==2.4.7
-pypiwin32==223
 python-dateutil==2.8.0
-
 PyYAML==5.3.1
 requests==2.20.1
 semantic-version==2.5.0
