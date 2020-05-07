@@ -7,4 +7,12 @@
 {% block content %}
   {% include 'components/notification.html' %}
   {{render_form(form)}}
+
+  <h4 class="text-center text-muted">
+  Não possui uma conta?
+    <a href="{{url_for('auth.register')}}"
+       class="btn btn-success btn-link">Faça o seu cadastro</a>
+  </h4>
+
+
 {% endblock %}

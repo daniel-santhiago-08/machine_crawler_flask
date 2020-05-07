@@ -7,6 +7,11 @@ from sqlalchemy import BigInteger, Column, Date, Float, \
 metadata = MetaData()
 
 
+# roles_users = db.Table('roles_users',
+#     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+#     db.Column('role_id', db.Integer, db.ForeignKey('role.id'))
+# )
+
 
 @login_manager.user_loader
 def current_user(user_id):
@@ -22,8 +27,14 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255), nullable=False)
     profile = db.relationship('Profile', backref='user', uselist=False)
 
+    # active = db.Column(db.Boolean)
+    # confirmed_at = db.Column(db.DateTime)
+
     def __str__(self):
         return self.name
+
+
+
 
 class Profile(db.Model):
     __tablename__ = 'profiles'
@@ -34,6 +45,13 @@ class Profile(db.Model):
 
     def __str__(self):
         return self.name
+
+
+# class Role(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(40))
+#     description = db.Column(db.String(255))
+
 
 
 t_machine_print = Table(

@@ -1,12 +1,20 @@
 from . import auth
 
+# from app.models import User, Role
 from app.models import User
-from flask import redirect, url_for, render_template, flash
+from flask import redirect, url_for, render_template, flash, request
 from flask_login import login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db
+from app import db, login_manager
 from datetime import timedelta
 from app.forms import LoginForm, RegisterForm
+
+
+# from flask_security import Security, SQLAlchemyUserDatastore, Pas
+#
+# user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+# security = Security(app, user_datastore)
+
 
 
 
@@ -46,3 +54,7 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('user.index'))
+
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    return redirect('/login?next=' + request.path)

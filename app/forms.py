@@ -13,6 +13,9 @@ class LoginForm(FlaskForm):
     remember = BooleanField("Permanecer Conectado")
     submit = SubmitField("Logar")
 
+
+
+
 class RegisterForm(FlaskForm):
     name = StringField("Nome Completo", validators=[
         DataRequired("O campo é obrigatório")
