@@ -1,16 +1,6 @@
 eb init -p python-3.6 machine-crawler-flask --region sa-east-1
-eb create flask-env
-eb create machines-env
+
 eb create machine-crawler-flask-env
 
-# Para rodar com sucesso a aplicação com Postgre
-é preciso fazer uma instalação na máquina virtual
-Para isso digite:
-## eb ssh -flask-env
 
-ssh -i "flask-env.pem" ec2-user@ec2-18-228-211-126.sa-east-1.compute.amazonaws.com
-
-sudo yum install postgresql-devel
-sudo install psycopg2
-
-eb deploy machine-crawler-flask-env --version "app-1776-200507_121903"
+eb deploy machine-crawler-flask-env
