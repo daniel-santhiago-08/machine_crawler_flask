@@ -1,6 +1,7 @@
 eb init -p python-3.6 machine-crawler-flask --region sa-east-1
 eb create flask-env
 eb create machines-env
+eb create machine-crawler-flask-env
 
 # Para rodar com sucesso a aplicação com Postgre
 é preciso fazer uma instalação na máquina virtual
