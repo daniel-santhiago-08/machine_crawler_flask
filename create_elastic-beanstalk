@@ -1,0 +1,2 @@
+eb init -p python-3.6 machine-crawler-flask --region sa-east-1
+eb create flask-env

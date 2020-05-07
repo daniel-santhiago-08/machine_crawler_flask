@@ -2,3 +2,8 @@ cd "C:\Users\daniel.santhiago\OneDrive - Interpublic\Documents\Daniel\Nestle\mac
 git init
 
 git remote add origin https://github.com/daniel-santhiago-08/machine_crawler_flask
+
+git status
+git add .
+git commit -m "Primeiro Commit"
+git push -f origin master
