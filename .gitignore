@@ -1,6 +1,8 @@
 .idea/
 mcrawlenv
 rootkey.csv
+flask-env.pem
+flask.pem
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
